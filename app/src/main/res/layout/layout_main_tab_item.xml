@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.example.xusoku.bledemo.views.CustomTypefaceTextView xmlns:android="http://schemas.android.com/apk/res/android"
+                                           android:layout_width="wrap_content"
+                                           android:layout_height="match_parent"
+                                           android:drawableTop="@drawable/main_btn_home_selector"
+                                           android:text="榜单"
+                                           android:paddingTop="5dp"
+                                           android:gravity="center"
+                                           android:textColor="@color/main_btn_tab_text_color"
+                                           android:textSize="12sp"/>

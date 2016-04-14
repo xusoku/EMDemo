@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <View
+        android:id="@+id/customStatusBarView"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/layTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <com.example.xusoku.bledemo.views.CustomTypefaceTextView
+            android:id="@+id/tvTopBarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:alpha="1"
+            android:background="@null"
+            android:clickable="true"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <ImageButton
+            android:id="@+id/btnLeft"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@null"
+            android:src="@drawable/ic_nearby"
+            android:onClick="doClick"
+            android:padding="15dp"
+            android:scaleType="fitCenter" />
+
+        <ImageButton
+            android:id="@+id/btnRight"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:background="@null"
+            android:onClick="doClick"
+            android:padding="15dp"
+            android:scaleType="fitCenter"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <FrameLayout
+        android:id="@+id/layBody"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <ViewStub
+            android:id="@+id/stubLoadingFailed"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inflatedId="@+id/layLoadingFailed"
+            android:layout="@layout/layout_loading_failed" />
+    </FrameLayout>
+</LinearLayout>
