@@ -84,7 +84,7 @@ class MainActivity : BaseActivity() {
                 title = tabNames[position]
             }
         })
-        val colorBar = ColorBar(mContext, mContext.resources.getColor(R.color.red_color))
+        val colorBar = ColorBar(mContext, mContext.resources.getColor(R.color.colorAccent))
         //        colorBar.setWidth(DimenUtils.dp2px(mContext, 80));
 
         indicator.setScrollBar(colorBar)

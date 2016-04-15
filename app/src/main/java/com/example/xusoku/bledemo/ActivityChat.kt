@@ -1,22 +1,52 @@
 package com.example.xusoku.bledemo
 
+import android.graphics.Rect
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.util.Log
+import android.view.View
+import android.view.ViewTreeObserver
+import android.widget.EditText
+import com.example.xusoku.bledemo.util.CommonManager
 import com.hyphenate.EMMessageListener
 
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMConversation
 import com.hyphenate.chat.EMMessage
+import kotlinx.android.synthetic.main.activity_activity_chat.*
 
 class ActivityChat : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_activity_chat)
-       title = "聊一聊"
+       title = "提问你想问的"
 
-        sendTextMessage("你好");
+
+
+
+
+        commentEdit.setOnFocusChangeListener(View.OnFocusChangeListener { view, b ->
+            if (b) {
+                CommonManager.showSoftInputMethod(this)
+            } else {
+                CommonManager.dismissSoftInputMethod(this, view.windowToken)
+            }
+        })
+        controlKeyboardLayout(overlay, commentInputLayout)
+
+
+        chat_btn.setOnClickListener{
+           var aa : String = commentEdit.text.toString()
+
+            if(aa!=null&&!aa.equals("")){
+                sendTextMessage(aa)
+            } else{
+                Snackbar.make(chat_btn,"请输入内容",Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
     }
 
     override fun onResume() {
@@ -53,6 +83,8 @@ class ActivityChat : AppCompatActivity() {
                 if (username.equals("robotone")) {
                     // 声音和震动提示有新消息
                     Log.e("robotone","robotone="+message)
+
+                    chat_tv.text=message.toString()
                 } else {
                     // 如果消息不是和当前聊天ID的消息
                 }
@@ -72,6 +104,7 @@ class ActivityChat : AppCompatActivity() {
     protected fun sendTextMessage(content: String) {
         val message = EMMessage.createTxtSendMessage(content, "robotone")
         //发送消息
+        message.setAttribute("em_robot_message",true)
         EMClient.getInstance().chatManager().sendMessage(message)
     }
 
@@ -88,5 +121,46 @@ class ActivityChat : AppCompatActivity() {
         } else {
             return EMConversation.EMConversationType.ChatRoom;
         }
+    }
+
+
+    /**
+     * @param root         最外层布局，需要调整的布局
+     * *
+     * @param scrollToView 被键盘遮挡的scrollToView，滚动root,使scrollToView在root可视区域的底部
+     */
+    private fun controlKeyboardLayout(root: View, scrollToView: View) {
+        root.viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
+            internal var mLastHeight = 0
+            internal var mLastBottom = -1
+
+            override fun onGlobalLayout() {
+                val rect = Rect()
+                root.getWindowVisibleDisplayFrame(rect)
+
+                if (mLastBottom == -1) {
+                    mLastBottom = rect.bottom
+                    return
+                }
+                val nb = rect.bottom
+                val ob = mLastBottom
+
+                if (nb < ob) {
+                    // 键盘显示了， 滑上去
+                    val location = IntArray(2)
+                    scrollToView.getLocationInWindow(location)
+                    val scrollHeight = location[1] + scrollToView.height - nb
+
+                    root.scrollTo(0, scrollHeight)
+                    mLastHeight = scrollHeight
+                } else if (nb > ob) {
+                    // 键盘隐藏了, 滑下来
+                    root.scrollTo(0, 0)
+                }
+                if (nb != ob) {
+                    mLastBottom = nb
+                }
+            }
+        })
     }
 }

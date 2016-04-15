@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.xusoku.bledemo.ActivityChat">
+
+    <TextView
+        android:id="@+id/chat_tv"
+        android:textSize="@dimen/common_measure_60dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:id="@+id/commentInputLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+    <EditText
+        android:id="@+id/commentEdit"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/common_measure_20dp"
+        android:hint="输入想问的问题"/>
+    <Button
+        android:id="@+id/chat_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/common_measure_20dp"
+        android:text="确定"/>
+    </LinearLayout>
 
 </RelativeLayout>
