@@ -42,6 +42,8 @@ class ActivityChat : AppCompatActivity() {
 
             if(aa!=null&&!aa.equals("")){
                 sendTextMessage(aa)
+                commentEdit.text.clear()
+                CommonManager.dismissSoftInputMethod(this, chat_btn.getWindowToken())
             } else{
                 Snackbar.make(chat_btn,"请输入内容",Snackbar.LENGTH_SHORT).show()
             }
