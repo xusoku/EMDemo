@@ -8,9 +8,10 @@
 
     <TextView
         android:id="@+id/chat_tv"
-        android:textSize="@dimen/common_measure_60dp"
+        android:textSize="@dimen/common_measure_20dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
     <LinearLayout
         android:id="@+id/commentInputLayout"
         android:layout_alignParentBottom="true"

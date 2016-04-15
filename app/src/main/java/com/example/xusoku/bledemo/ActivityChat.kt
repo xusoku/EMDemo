@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.EditText
 import com.example.xusoku.bledemo.util.CommonManager
+import com.example.xusoku.bledemo.util.parseJson
 import com.hyphenate.EMMessageListener
 
 import com.hyphenate.chat.EMClient
 import com.hyphenate.chat.EMConversation
 import com.hyphenate.chat.EMMessage
 import kotlinx.android.synthetic.main.activity_activity_chat.*
+import org.jetbrains.anko.toast
 
 class ActivityChat : AppCompatActivity() {
 
@@ -41,6 +43,7 @@ class ActivityChat : AppCompatActivity() {
            var aa : String = commentEdit.text.toString()
 
             if(aa!=null&&!aa.equals("")){
+//                chat_tv.setText("")
                 sendTextMessage(aa)
                 commentEdit.text.clear()
                 CommonManager.dismissSoftInputMethod(this, chat_btn.getWindowToken())
@@ -84,9 +87,14 @@ class ActivityChat : AppCompatActivity() {
                 // 如果是当前会话的消息，刷新聊天页面
                 if (username.equals("robotone")) {
                     // 声音和震动提示有新消息
-                    Log.e("robotone","robotone="+message)
+//                    toast(parseJson.getString(message))
+                    Log.e("vvvv",""+parseJson.getString(message))
+                    chat_tv.post(object : Runnable {
+                        override fun run() {
+                        chat_tv.setText(parseJson.getString(message))
+                    }
+                    })
 
-                    chat_tv.text=message.toString()
                 } else {
                     // 如果消息不是和当前聊天ID的消息
                 }
@@ -165,4 +173,5 @@ class ActivityChat : AppCompatActivity() {
             }
         })
     }
+
 }
