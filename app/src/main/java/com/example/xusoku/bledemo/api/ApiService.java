@@ -13,5 +13,8 @@ public interface ApiService {
         //http://www.tngou.net/tnfs/api/list?page=1&rows=10
         @GET("tnfs/api/list")
         Call<Grils> listGrils(@Query("id") int id,@Query("page") int page,@Query("rows") int rows);
+        //http://www.tngou.net/tnfs/api/list?page=1&rows=10
+        @GET("tnfs/api/list")
+        Call<Grils> listGril(@Query("id") int id,@Query("page") int page,@Query("rows") int rows);
+        
 }
-
